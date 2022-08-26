@@ -35,8 +35,8 @@ class _HomePageState extends State<HomePage> {
     '26.08.2022'
   ];
 
-  final List<double> changeEuro = <double>[12345.01, 3245.34, 54325.89];
-  final List<double> changePercent = <double>[12.5, 166.4, 1238.2];
+  final List<double> changeEuro = <double>[23.01, 3245.34, 54325.89];
+  final List<double> changePercent = <double>[-12.5, 166.4, 1238.2];
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: TextSpan(
                             text: longnames[index],
-                            style: TextStyle(fontSize: 24),
+                            style: TextStyle(fontSize: 22),
                             children: <TextSpan>[
                               TextSpan(
                                 text: ' (' + symbol[index] + ')',
@@ -90,7 +90,11 @@ class _HomePageState extends State<HomePage> {
                           Text('${amount[index]} / ${buyprice[index]} €'),
                           Text(
                             '${stop[index]} € (${lastChangeStop[index]})',
-                            style: TextStyle(color: Colors.green, fontSize: 16),
+                            style: TextStyle(
+                                color: stop[index] < price[index]
+                                    ? Colors.green
+                                    : Colors.red,
+                                fontSize: 16),
                           ),
                         ],
                       ),
@@ -100,9 +104,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             '${price[index]} €',
                             style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             '${lastUpdate[index]}',
@@ -116,12 +118,20 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             '${changeEuro[index]} €',
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: changePercent[index] < 0
+                                    ? Colors.red
+                                    : Colors.green),
                           ),
                           Text(
                             '${changePercent[index]} %',
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: changePercent[index] < 0
+                                    ? Colors.red
+                                    : Colors.green),
                           ),
                         ],
                       )
